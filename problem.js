@@ -1,8 +1,10 @@
-let obj = {
-    name: 'test1',
-    city: {
-        address: 'Lyon'
-    }
+const obj1 = {
+    name: 'ana'
 }
 
-console.log(obj.city?.address)
+const mergeObj = {
+    ...obj1,
+    name: 'ben'
+}
+
+console.log(mergeObj)

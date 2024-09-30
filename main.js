@@ -75,6 +75,10 @@ const arrayTransform = arrayNb.map(function(nb) {
 })
 console.log(arrayTransform)
 
+arrayNb.forEach((nb) => {
+    console.log(nb)
+})
+
 // -- object
 
 const user = {
@@ -106,3 +110,19 @@ user.foo()
 for (let key in user) {
     console.log(user[key])
 }
+
+const array1 = [1, 2, 3]
+const mergeArray = [...array1, 4, 5, 6]
+
+console.log(mergeArray)
+
+const defaultOptions = {
+    name: 'ana'
+}
+
+const originalObj = {
+    ...defaultOptions,
+    name: 'ben'
+}
+
+console.log(originalObj)
