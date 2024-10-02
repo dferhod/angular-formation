@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { User } from "../../core/interfaces/user";
+import { LangPipe } from "../../shared/pipes/lang.pipe";
 
 @Component({
     selector: 'app-user-card',
@@ -7,9 +8,13 @@ import { User } from "../../core/interfaces/user";
         <article>
             <header>{{ user.name }}</header>
             {{ user.email }}
+            <footer>
+                <button>{{ 'REMOVE' | lang:'fr' }}</button>
+            </footer>
         </article>  
     `,
-    standalone: true
+    standalone: true,
+    imports: [LangPipe]
 })
 export class UserCardComponent {
     @Input() user: User = {} as User
