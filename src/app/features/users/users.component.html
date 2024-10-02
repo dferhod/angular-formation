@@ -1,30 +1,32 @@
-<h1>{{ 'Utilisateur' | plural:nbSelected }}</h1>
+<app-loader [loading]="listLoading">
+    <h1>{{ 'Utilisateur' | plural:nbSelected }}</h1>
 
-<select [(ngModel)]="nbSelected">
-    <option>0</option>
-    <option>1</option>
-    <option>2</option>
-</select>
+    <select [(ngModel)]="nbSelected">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+    </select>
 
-<select [(ngModel)]="extSelected">
-    <option value="">Tous</option>
-    @for (ext of extensions ; track ext) {
-        <option>{{ ext }}</option>
+    <select [(ngModel)]="extSelected">
+        <option value="">Tous</option>
+        @for (ext of extensions ; track ext) {
+            <option>{{ ext }}</option>
+        }
+    </select>
+
+    @if (errorMessage) {
+        <p>{{ errorMessage }}</p>
     }
-</select>
 
-@if (errorMessage) {
-    <p>{{ errorMessage }}</p>
-}
+    <input type="text" [(ngModel)]="cardIndex">
+    <button (click)="scrollToUser()">Scroll</button>
 
-<input type="text" [(ngModel)]="cardIndex">
-<button (click)="scrollToUser()">Scroll</button>
-
-@for (u of users | extFilter:extSelected ; track u.id) {
-    <div #refUser>
-        <app-user-card [user]="u">
-            <h1 class="title" #title>Titre</h1>
-            <h2 #title>Footer</h2>
-        </app-user-card>
-    </div>
-}
+    @for (u of users | extFilter:extSelected ; track u.id) {
+        <div #refUser>
+            <app-user-card [user]="u">
+                <h1 class="title" #title>Titre</h1>
+                <h2 #title>Footer</h2>
+            </app-user-card>
+        </div>
+    }
+</app-loader>

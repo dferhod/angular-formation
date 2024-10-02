@@ -1,17 +1,18 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../shared/pipes/plural.pipe';
 import { FormsModule } from '@angular/forms';
 import { Extensionpipe } from '../../shared/pipes/extension.pipe';
+import { LoaderComponent } from '../../atomics/loader/loader.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   standalone: true,
-  imports: [UserCardComponent, PluralPipe, FormsModule, Extensionpipe]
+  imports: [UserCardComponent, PluralPipe, FormsModule, Extensionpipe, LoaderComponent]
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   @ViewChildren('refUser') propCards!: QueryList<ElementRef<HTMLDivElement>>
   
   nbSelected = 0
@@ -19,6 +20,13 @@ export class UsersComponent {
   extensions: string[] = ['tv', 'biz', 'io', 'me']
   cardIndex = 0
   errorMessage = ''
+  listLoading = true
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.listLoading = false
+    }, 2000)
+  }
   
   scrollToUser() {
     const arrayElementCards = this.propCards.toArray()
@@ -27,6 +35,7 @@ export class UsersComponent {
       this.errorMessage = 'Index invalide'
       return
     }
+    this.errorMessage = ''
     elementCard.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
   
