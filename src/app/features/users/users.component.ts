@@ -1,44 +1,63 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../shared/pipes/plural.pipe';
 import { FormsModule } from '@angular/forms';
 import { Extensionpipe } from '../../shared/pipes/extension.pipe';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
+import { AlphaRangeComponent } from '../../atomics/alpha-range/alpha-range.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   standalone: true,
-  imports: [UserCardComponent, PluralPipe, FormsModule, Extensionpipe, LoaderComponent]
+  imports: [
+    UserCardComponent,
+    PluralPipe,
+    FormsModule,
+    Extensionpipe,
+    LoaderComponent,
+    AlphaRangeComponent
+  ],
 })
 export class UsersComponent implements OnInit {
-  @ViewChildren('refUser') propCards!: QueryList<ElementRef<HTMLDivElement>>
-  
-  nbSelected = 0
-  extSelected = ''
-  extensions: string[] = ['tv', 'biz', 'io', 'me']
-  cardIndex = 0
-  errorMessage = ''
-  listLoading = true
+  @ViewChildren('refUser') propCards!: QueryList<ElementRef<HTMLDivElement>>;
+
+  nbSelected = 0;
+  extSelected = '';
+  extensions: string[] = ['tv', 'biz', 'io', 'me'];
+  cardIndex = 0;
+  errorMessage = '';
+  listLoading = true;
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.listLoading = false
-    }, 2000)
+      this.listLoading = false;
+    }, 2000);
   }
-  
+
   scrollToUser() {
-    const arrayElementCards = this.propCards.toArray()
-    const elementCard = arrayElementCards[this.cardIndex]
+    const arrayElementCards = this.propCards.toArray();
+    const elementCard = arrayElementCards[this.cardIndex];
     if (!elementCard) {
-      this.errorMessage = 'Index invalide'
-      return
+      this.errorMessage = 'Index invalide';
+      return;
     }
-    this.errorMessage = ''
-    elementCard.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    this.errorMessage = '';
+    elementCard.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
   }
-  
+
   users: User[] = [
     {
       id: 1,

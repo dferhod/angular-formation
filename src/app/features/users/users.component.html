@@ -1,6 +1,8 @@
 <app-loader [loading]="listLoading">
     <h1>{{ 'Utilisateur' | plural:nbSelected }}</h1>
 
+    <app-alpha-range color="black" [opacity]="0.5" />
+
     <select [(ngModel)]="nbSelected">
         <option>0</option>
         <option>1</option>
