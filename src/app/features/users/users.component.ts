@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../shared/pipes/plural.pipe';
@@ -12,9 +12,24 @@ import { Extensionpipe } from '../../shared/pipes/extension.pipe';
   imports: [UserCardComponent, PluralPipe, FormsModule, Extensionpipe]
 })
 export class UsersComponent {
+  @ViewChildren('refUser') propCards!: QueryList<ElementRef<HTMLDivElement>>
+  
   nbSelected = 0
   extSelected = ''
   extensions: string[] = ['tv', 'biz', 'io', 'me']
+  cardIndex = 0
+  errorMessage = ''
+  
+  scrollToUser() {
+    const arrayElementCards = this.propCards.toArray()
+    const elementCard = arrayElementCards[this.cardIndex]
+    if (!elementCard) {
+      this.errorMessage = 'Index invalide'
+      return
+    }
+    elementCard.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  
   users: User[] = [
     {
       id: 1,

@@ -13,9 +13,18 @@
     }
 </select>
 
+@if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+}
+
+<input type="text" [(ngModel)]="cardIndex">
+<button (click)="scrollToUser()">Scroll</button>
+
 @for (u of users | extFilter:extSelected ; track u.id) {
-    <app-user-card [user]="u">
-        <h1 class="title" #title>Titre</h1>
-        <h2 #title>Footer</h2>
-    </app-user-card>
+    <div #refUser>
+        <app-user-card [user]="u">
+            <h1 class="title" #title>Titre</h1>
+            <h2 #title>Footer</h2>
+        </app-user-card>
+    </div>
 }
