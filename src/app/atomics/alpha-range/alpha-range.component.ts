@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -20,8 +20,9 @@ import { FormsModule } from '@angular/forms';
 export class AlphaRangeComponent {
   @Input() opacity = 1
   @Input() color = 'white'
+  @Output() eventChange: EventEmitter<number> = new EventEmitter()
 
   changeOpacity() {
-
+    this.eventChange.emit(this.opacity)
   }
 }
