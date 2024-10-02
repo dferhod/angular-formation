@@ -3,15 +3,18 @@ import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../shared/pipes/plural.pipe';
 import { FormsModule } from '@angular/forms';
+import { Extensionpipe } from '../../shared/pipes/extension.pipe';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   standalone: true,
-  imports: [UserCardComponent, PluralPipe, FormsModule]
+  imports: [UserCardComponent, PluralPipe, FormsModule, Extensionpipe]
 })
 export class UsersComponent {
   nbSelected = 0
+  extSelected = ''
+  extensions: string[] = ['tv', 'biz', 'io', 'me']
   users: User[] = [
     {
       id: 1,
