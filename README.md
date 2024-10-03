@@ -1,23 +1,2 @@
-/api/me -> { "email": "...", name: "" }
-
-```ts
-class Me {
-    getName() {
-        return ....
-    }
-}
-```
-
-Barre de navigation
-
-```ts
-
-me.getName()
-```
-
-Contenu
-
-```ts
-
-me.getName()
-```
+/login -> Serveur -> Routeur -> Controller
+/login -> Routeur -> Component
