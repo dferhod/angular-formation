@@ -42,8 +42,18 @@ export class UsersComponent implements OnInit {
   errorMessage = '';
   listLoading = true;
   users = this.usersService.usersFiltered
+  
   ngOnInit(): void {
-    this.listLoading = false;
+    this.usersService.getAll().subscribe(() => {
+      this.listLoading = false;
+    })
+  }
+
+  createUser() {
+    this.usersService.create({
+      name: 'ana',
+      email: 'ana@gmail.com'
+    }).subscribe()
   }
 
   scrollToUser() {
