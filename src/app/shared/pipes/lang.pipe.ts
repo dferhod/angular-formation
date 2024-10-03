@@ -1,6 +1,12 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
-const WORDS: any = {
+type Dict = {
+    [wordId: string]: {
+        [locale: string]: string
+    }
+}
+
+const WORDS: Dict = {
     REMOVE: {
         fr: 'Supprimer',
         en: 'Delete'
