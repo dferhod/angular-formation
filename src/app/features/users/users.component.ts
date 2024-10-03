@@ -56,6 +56,10 @@ export class UsersComponent implements OnInit {
     }).subscribe()
   }
 
+  deleteUser(id: number) {
+    console.log(id)
+  }
+
   scrollToUser() {
     const arrayElementCards = this.propCards.toArray();
     const elementCard = arrayElementCards[this.cardIndex];
