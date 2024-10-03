@@ -57,7 +57,7 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    console.log(id)
+     this.usersService.delete(id).subscribe()
   }
 
   scrollToUser() {
