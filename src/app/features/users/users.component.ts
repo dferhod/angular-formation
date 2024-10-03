@@ -41,11 +41,9 @@ export class UsersComponent implements OnInit {
   cardIndex = 0;
   errorMessage = '';
   listLoading = true;
-  users: User[] = []
-
+  users = this.usersService.usersFiltered
   ngOnInit(): void {
     this.listLoading = false;
-    this.users = this.usersService.getAll()
   }
 
   scrollToUser() {
