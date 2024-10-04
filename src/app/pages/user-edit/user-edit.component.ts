@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UsersService } from '../../core/services/users.service';
+import { UserPayload, UsersService } from '../../core/services/users.service';
 import { User } from '../../core/interfaces/user';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -32,6 +32,18 @@ export class UserEditComponent implements OnInit {
       // this.propName.setValue(this.user.name)
       // this.form.get('username')?.setValue(this.user.username)
       this.form.patchValue(this.user)
+    })
+  }
+
+  edit() {
+    this.usersService.update(
+        this.user.id, 
+        this.form.value as UserPayload
+    ).subscribe((userModified) => {
+      this.user = {
+        ...this.user,
+        ...userModified,
+      } // fusion avec un potentiel objet partiel
     })
   }
 }

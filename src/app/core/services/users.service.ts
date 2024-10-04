@@ -3,6 +3,14 @@ import { User } from "../interfaces/user";
 import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 
+export interface UserPayload {
+  email: string
+  username: string
+  name: string
+}
+
+// export type UserPayload = Omit<User, 'id'>
+
 @Injectable({
     providedIn: 'root'
 })
@@ -41,6 +49,17 @@ export class UsersService {
           tap((userCreated) => {
              const users = this._users()
              this._users.set([ ...users, userCreated ])
+          })
+        )
+    }
+
+    update(id: number, payload: UserPayload): Observable<User> {
+      return this.http.put<User>(this.url + '/' + id, payload)
+        .pipe(
+          tap((userModified) => {
+            this._users.set(
+              this._users().map(user => user.id == id ? userModified : user)
+            )
           })
         )
     }
