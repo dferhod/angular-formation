@@ -13,6 +13,7 @@ import {
 import { User } from '../../core/interfaces/user';
 import { LangPipe } from '../../shared/pipes/lang.pipe';
 import { RouterLink } from '@angular/router';
+import { ConfirmDirective } from '../../shared/directives/confirm.directive';
 
 @Component({
   selector: 'app-user-card',
@@ -23,13 +24,19 @@ import { RouterLink } from '@angular/router';
       {{ user.email }}
       <footer>
         <ng-content />
-        <button (click)="remove()">{{ 'REMOVE' | lang : 'fr' }}</button>
+        <button 
+        (eventConfirm)="remove()" 
+        confirm="Etes vous sûr..."
+        [confirmUserName]="user.name"
+        >
+          {{ 'REMOVE' | lang : 'fr' }}
+        </button>
         <button [routerLink]="['user', user.id]">Modifier</button>
       </footer>
     </article>
   `,
   standalone: true,
-  imports: [LangPipe, RouterLink],
+  imports: [LangPipe, RouterLink, ConfirmDirective],
 })
 export class UserCardComponent implements OnInit, AfterContentInit {
   @Input() user: User = {} as User;
