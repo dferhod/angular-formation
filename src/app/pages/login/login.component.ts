@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { domainValidator } from '../../core/validators/domain.validator';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class LoginComponent {
   propEmail = new FormControl('', [
     Validators.required,
-    Validators.minLength(3)
+    Validators.minLength(3),
+   domainValidator('hotmail.com')
   ])
   propPass = new FormControl()
   myForm = new FormGroup({
@@ -21,6 +23,7 @@ export class LoginComponent {
 
   login() {
     this.submitted = true
+    if (this.myForm.invalid) return
     console.log(this.myForm.value)
   }
 }
