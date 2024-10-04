@@ -1,44 +1,26 @@
-import { Component, inject } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
-import { NgClass } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, NgClass],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styles: `
-    .red {
-      color: red;
-    }
-    .green {
-      color: green;
-    }
-
-    input[name="email"] {
-      background-color: gray;
-    }
-
-    input.ng-invalid {
-      background-color: red;
-    }
-  `
 })
 export class LoginComponent {
-  private authService = inject(AuthService)
-  private router = inject(Router)
+  propEmail = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3)
+  ])
+  propPass = new FormControl()
+  myForm = new FormGroup({
+    email: this.propEmail,
+    password: this.propPass
+  })
+  submitted = false
 
-  login(form: NgForm) {
-    if (form.invalid) return
-    this.authService.login(form.value).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/')
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
+  login() {
+    this.submitted = true
+    console.log(this.myForm.value)
   }
 }
