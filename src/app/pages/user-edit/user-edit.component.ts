@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-edit',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
   templateUrl: './user-edit.component.html',
   styleUrl: './user-edit.component.css'
 })
-export class UserEditComponent {
+export class UserEditComponent implements OnInit {
+  private route = inject(ActivatedRoute)
 
+  ngOnInit(): void {
+    const id = this.route.snapshot.params['id']
+    //const usersList = this.route.snapshot.data['usersList']
+    console.log(id)
+  }
 }

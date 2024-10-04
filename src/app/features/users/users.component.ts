@@ -40,15 +40,15 @@ export class UsersComponent implements OnInit {
   extensions: string[] = ['tv', 'biz', 'io', 'me'];
   cardIndex = 0;
   errorMessage = '';
-  listLoading = true;
+  listLoading = false;
   createLoading = false
   users = this.usersService.usersFiltered
 
   
   ngOnInit(): void {
-    this.usersService.getAll().subscribe(() => {
-      this.listLoading = false;
-    })
+    // this.usersService.getAll().subscribe(() => {
+    //   this.listLoading = false;
+    // })
   }
 
   createUser(form: NgForm) {
