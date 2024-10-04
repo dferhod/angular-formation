@@ -18,7 +18,9 @@ export class LoginComponent {
   myForm = new FormGroup({
     email: this.propEmail,
     password: this.propPass
-  })
+  },  [
+    
+  ])
   submitted = false
 
   login() {

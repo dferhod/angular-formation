@@ -13,6 +13,7 @@ import { UsersService } from "../../core/services/users.service";
         <p>{{ price | currency:'EUR':'code' }}</p>
         <app-search [userName]="name" (eventSearch)="listenSearch($event)" />
         <button routerLink="/login">Se connecter</button>
+        <button routerLink="/register">S'inscrire</button>
         <button (click)="changeTitle()">Changer titre</button>
     `,
     standalone: true,
