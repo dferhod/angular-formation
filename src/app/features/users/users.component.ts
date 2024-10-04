@@ -11,7 +11,7 @@ import {
 import { UserCardComponent } from './user-card.component';
 import { User } from '../../core/interfaces/user';
 import { PluralPipe } from '../../shared/pipes/plural.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Extensionpipe } from '../../shared/pipes/extension.pipe';
 import { LoaderComponent } from '../../atomics/loader/loader.component';
 import { AlphaRangeComponent } from '../../atomics/alpha-range/alpha-range.component';
@@ -41,7 +41,9 @@ export class UsersComponent implements OnInit {
   cardIndex = 0;
   errorMessage = '';
   listLoading = true;
+  createLoading = false
   users = this.usersService.usersFiltered
+
   
   ngOnInit(): void {
     this.usersService.getAll().subscribe(() => {
@@ -49,11 +51,21 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  createUser() {
-    this.usersService.create({
-      name: 'ana',
-      email: 'ana@gmail.com'
-    }).subscribe()
+  createUser(form: NgForm) {
+    if (form.invalid) return
+    this.createLoading = true
+    this.usersService.create(form.value).subscribe({
+      next: () => {
+        this.createLoading = false
+        form.resetForm()
+      },
+      error: (err) => {
+        this.createLoading = false
+      },
+      // complete: () => {
+
+      // }
+    })
   }
 
   deleteUser(id: number) {
